@@ -62,12 +62,18 @@ def run_placeholder_scripts():
         else:
             print(f"Скрипт {script} не найден. Пропуск.")
 
-if name == "__main__":
-    # 1. Установка Conda
-    install_conda()
-    
-    # 2. Установка MFA через Conda
-    install_mfa()
+def check_conda():
+    """Проверяет, установлена ли Conda в системе."""
+    conda_path = shutil.which("conda")
+    if conda_path:
+        print(f"Conda установлена: {conda_path}")
+        return True
+    else:
+        print("Conda не найдена. Установите Conda перед продолжением.")
+        return False
 
-    # 3. Выполнение других скриптов
-    run_placeholder_scripts()
+if __name__ == "__main__":
+    if check_conda():
+        print("Можно продолжить работу.")
+    else:
+        print("Установка Conda необходима для выполнения скрипта.")
